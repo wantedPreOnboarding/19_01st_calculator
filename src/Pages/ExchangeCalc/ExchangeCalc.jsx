@@ -11,7 +11,7 @@ const ExchangeCalc = () => {
 
   useEffect(() => {
     (async () => {
-      const countryName = await getCurrencies();
+      const { currencies: countryName } = await getCurrencies();
 
       switch (country) {
         case 'KRW':
@@ -30,12 +30,11 @@ const ExchangeCalc = () => {
     })();
   }, [exchangeRate, country]);
 
-
-  const handleSelect = (event) => {
+  const handleSelect = event => {
     setCountry(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = event => {
     event.preventDefault();
 
     const remittance = event.target.remittance.value;
@@ -45,12 +44,12 @@ const ExchangeCalc = () => {
       setRemittance(remittance * exchangeRate);
     }
     setResultActive(true);
-  }
+  };
 
   return (
-    <section className='calculator__wrapper'>
-      <h1 className='calculator__wrapper--title'>환율 계산</h1>
-      <form className='calculator__form' onSubmit={handleFormSubmit} >
+    <section className="calculator__wrapper">
+      <h1 className="calculator__wrapper--title">환율 계산</h1>
+      <form className="calculator__form" onSubmit={handleFormSubmit}>
         <div>
           <span>송금국가 : 미국(USD)</span>
         </div>
@@ -63,19 +62,25 @@ const ExchangeCalc = () => {
           </select>
         </div>
         <div>
-          <span>환율 : {exchangeRate && commaNumber(exchangeRate.toFixed(2))}  {country}/USD</span>
+          <span>
+            환율 : {exchangeRate && commaNumber(exchangeRate.toFixed(2))} {country}/USD
+          </span>
         </div>
         <div>
           <span>송금액 : </span>
-          <input type="number" min={0} max={10000} name="remittance" aria-label='remittance' />
+          <input type="number" min={0} max={10000} name="remittance" aria-label="remittance" />
           <span>USD</span>
         </div>
         <button>Submit</button>
       </form>
-      {resultActive
-        && <div className={remittance === 0 ? 'error' : 'success'}>{remittance === 0 ? '송금액이 바르지 않습니다' : `수취금액은 ${commaNumber(remittance.toFixed(2))} ${country} 입니다.`}</div>}
-
+      {resultActive && (
+        <div className={remittance === 0 ? 'error' : 'success'}>
+          {remittance === 0
+            ? '송금액이 바르지 않습니다'
+            : `수취금액은 ${commaNumber(remittance.toFixed(2))} ${country} 입니다.`}
+        </div>
+      )}
     </section>
-  )
-}
+  );
+};
 export default ExchangeCalc;
