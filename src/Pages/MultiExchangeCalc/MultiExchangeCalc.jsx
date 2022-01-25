@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+/* == styles*/
 import './MultiExchangeCalc.scss';
+/* == api*/
 import { multiCountries } from '../../api/constants';
+import { getCurrencies } from '../../api/core';
+/* == Custom - utils */
 import commaNumber from '../../utils/commaNumber';
+import currencyExchanger from '../../utils/currencyExchanger';
+import formattedDate from '../../utils/formattedDate';
 
 const MultiExchangeCalc = () => {
   const [sendCountry, setSendCountry] = useState('USD');
   const [recvCountry, setRecvCountry] = useState('CAD');
   const [valueInput, setValueInput] = useState('');
+  const [{ currencies, timestamp }, setCurrencies] = useState({});
+  const [resultValue, setResultValue] = useState(0);
+
+  const changeResult = (sendCountry, recvCountry) => {
+    const result = currencyExchanger(sendCountry, recvCountry, valueInput, currencies);
+    setResultValue(result);
+  };
 
   const valueInputHandler = e => {
     e.preventDefault();
+    changeResult(sendCountry, recvCountry);
+  };
+
+  const tabHandler = country => {
+    setRecvCountry(country);
+    changeResult(sendCountry, country);
   };
 
   const inputHandler = value => {
@@ -27,8 +46,16 @@ const MultiExchangeCalc = () => {
     if (selectedCountry === recvCountry) {
       setRecvCountry(multiCountries.filter(country => country !== selectedCountry)[0]);
     }
+    changeResult(selectedCountry, recvCountry);
     setSendCountry(selectedCountry);
   };
+
+  useEffect(() => {
+    (async () => {
+      const currencies = await getCurrencies();
+      setCurrencies(currencies);
+    })();
+  }, []);
 
   return (
     <div className="ex-calc2">
@@ -68,7 +95,7 @@ const MultiExchangeCalc = () => {
                   className={`ex-calc2-body__tab--menu ${country === recvCountry && 'active'}`}
                   key={country}
                 >
-                  <button value={country} onClick={() => setRecvCountry(country)}>
+                  <button value={country} onClick={() => tabHandler(country)}>
                     {country}
                   </button>
                 </li>
@@ -76,10 +103,12 @@ const MultiExchangeCalc = () => {
             })}
         </ul>
         <div className="ex-calc2-body__result">
-          <span className="ex-calc2-body__result--main-text"> CAD 2,000.00</span>
+          <span className="ex-calc2-body__result--main-text">
+            {recvCountry} : {resultValue}
+          </span>
           <span className="ex-calc2-body__result--sub-text">
             기준일: <br />
-            2022-Jan-01
+            {timestamp && formattedDate(timestamp)}
           </span>
         </div>
       </div>
