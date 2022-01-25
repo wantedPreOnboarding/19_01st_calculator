@@ -1,10 +1,27 @@
 import React, { useState } from 'react';
 import './MultiExchangeCalc.scss';
 import { multiCountries } from '../../api/constants';
+import commaNumber from '../../utils/commaNumber';
 
 const MultiExchangeCalc = () => {
   const [sendCountry, setSendCountry] = useState('USD');
   const [recvCountry, setRecvCountry] = useState('CAD');
+  const [valueInput, setValueInput] = useState('');
+
+  const valueInputHandler = e => {
+    e.preventDefault();
+  };
+
+  const inputHandler = value => {
+    const filteredValue = value.replaceAll(',', '').trim('');
+    if (isNaN(+filteredValue)) return;
+
+    if (filteredValue <= 0) {
+      setValueInput('');
+    } else {
+      setValueInput(filteredValue > 1000 ? 1000 : filteredValue);
+    }
+  };
 
   const sendCountryHandler = selectedCountry => {
     if (selectedCountry === recvCountry) {
@@ -15,8 +32,18 @@ const MultiExchangeCalc = () => {
 
   return (
     <div className="ex-calc2">
-      <form className="ex-calc2-head__form">
-        <input type="text" className="ex-calc2-head__input" />
+      <form
+        className="ex-calc2-head__form"
+        onSubmit={e => {
+          valueInputHandler(e);
+        }}
+      >
+        <input
+          type="text"
+          className="ex-calc2-head__input"
+          value={commaNumber(valueInput)}
+          onChange={e => inputHandler(e.target.value)}
+        />
         <select
           name="currencies"
           className="ex-calc2-head__select"
