@@ -1,7 +1,7 @@
-function currencyExchanger(sendCon, recvCon, value, usdCurrencies) {
+function currencyExchanger(sendCountry, recvCountry, value, usdCurrencies) {
   const result = (
-    (sendCon === 'USD' ? 1 : 1 / usdCurrencies[`USD${sendCon}`]) *
-    usdCurrencies[`USD${recvCon}`] *
+    (sendCountry === 'USD' ? 1 : 1 / usdCurrencies[`USD${sendCountry}`]) *
+    usdCurrencies[`USD${recvCountry}`] *
     value
   ).toFixed(2);
 

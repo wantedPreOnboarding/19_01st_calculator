@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Nav from './Components/Nav/Nav';
-import ExchangeCalc from './Pages/ExchangeCalc/ExchangeCalc';
 import Main from './Pages/Main';
-import ExchangeCalc2 from './Pages/ExchangeCalc2';
+
+import MultiExchangeCalc from './Pages/MultiExchangeCalc/MultiExchangeCalc';
 
 const Routes = () => {
   return (
@@ -11,7 +11,7 @@ const Routes = () => {
       <Nav />
       <Switch>
         <Route exact path="/" component={Main} />
-        <Route exact path="/exchangeCalc" component={ExchangeCalc} />
+        <Route exact path="/multiExchangeCalc" component={MultiExchangeCalc} />
       </Switch>
     </BrowserRouter>
   );
