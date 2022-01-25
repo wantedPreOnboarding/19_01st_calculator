@@ -10,8 +10,14 @@ const currencyApi = key =>
 
 export const getCurrencies = async () => {
   try {
-    const { data } = await currencyApi(process.env.REACT_APP_CURRENCYLAYER_API);
-    return data.quotes;
+    const {
+      data: { quotes, timestamp },
+    } = await currencyApi(process.env.REACT_APP_CURRENCYLAYER_API);
+
+    return {
+      currencies: quotes,
+      timestamp: timestamp * 1000, // UNIX timestamp to JS timestamp
+    };
   } catch (e) {
     throw new Error(e);
   }
