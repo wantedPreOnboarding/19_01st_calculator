@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ExchangeCalc2 = () => {
+const MultiExchangeCalc = () => {
   return (
     <div className="exchange-calc2">
       <form className="exchange-calc2__box--head">
@@ -38,4 +38,4 @@ const ExchangeCalc2 = () => {
   );
 };
 
-export default ExchangeCalc2;
+export default MultiExchangeCalc;
