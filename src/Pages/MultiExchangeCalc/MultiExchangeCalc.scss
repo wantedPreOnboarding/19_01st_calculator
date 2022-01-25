@@ -23,6 +23,7 @@
       font-size: 24px;
       font-weight: 700;
       width: 150px;
+      cursor: pointer;
     }
 
     &__input {
@@ -44,11 +45,13 @@
         width: 100%;
         text-align: center;
         font-weight: 700;
-        padding: 5px 10px;
-
+        padding: 0;
         button {
+          width: 100%;
           background: none;
           padding-top: 2px;
+          padding: 5px 10px;
+          cursor: pointer;
         }
         &:nth-child(2n) {
           border-right: none;
