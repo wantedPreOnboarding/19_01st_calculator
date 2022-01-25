@@ -4,50 +4,47 @@ import './ExchangeCalc.scss';
 
 const ExchangeCalc = () => {
   const [country, setCountry] = useState('KRW');
-  const [money, setMoney] = useState(0);
+  const [exchangeRate, setExchangeRate] = useState(0);
   const [remittance, setRemittance] = useState(0);
   const [resultActive, setResultActive] = useState(false);
-  
+
   useEffect(() => {
     (async () => {
       const countryName = await getCurrencies();
 
       switch (country) {
         case 'KRW':
-          setMoney(countryName.USDKRW);
+          setExchangeRate(countryName.USDKRW);
           break;
         case 'JPY':
-          setMoney(countryName.USDJPY);
+          setExchangeRate(countryName.USDJPY);
           break;
         case 'PHP':
-          setMoney(countryName.USDPHP);
+          setExchangeRate(countryName.USDPHP);
           break;
         default:
           console.error('수취국가를 선택해 주세요.');
           break;
       }
     })();
-  }, [money, country]);
+  }, [exchangeRate, country]);
 
 
   const handleSelect = (event) => {
     setCountry(event.target.value);
   };
-  
-const handleFormSubmit=(event)=>{
-  event.preventDefault(); 
-  
-  const remittance = event.target.remittance.value;
-  if (remittance <= 0 || remittance > 10000) {
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    const remittance = event.target.remittance.value;
+    if (remittance <= 0 || remittance > 10000) {
+      setRemittance(0);
+    } else {
+      setRemittance(remittance * exchangeRate).toFixed(2);
+    }
     setResultActive(true);
-    setRemittance(0);
-    
-  } else {
-    setResultActive(true);
-    const total = remittance * money;
-    setRemittance(total.toFixed(2));
   }
-}
 
   return (
     <section className='calculator__wrapper'>
@@ -65,17 +62,18 @@ const handleFormSubmit=(event)=>{
           </select>
         </div>
         <div>
-          <span>환율 : {money && money.toFixed(2)}  {country}/USD</span>
+          <span>환율 : {exchangeRate && exchangeRate.toFixed(2)}  {country}/USD</span>
         </div>
         <div>
           <span>송금액 : </span>
-          <input type="number" min={0} max={10000} name="remittance" aria-label='remittance'/>
+          <input type="number" min={0} max={10000} name="remittance" aria-label='remittance' />
           <span>USD</span>
         </div>
         <button>Submit</button>
       </form>
-      {resultActive && <div>{remittance === 0 ? '송금액이 바르지 않습니다' : `수취금액은 ${remittance} ${country} 입니다.`}</div>}
-      
+      {resultActive
+        && <div className={remittance === 0 ? 'error' : 'success'}>{remittance === 0 ? '송금액이 바르지 않습니다' : `수취금액은 ${remittance} ${country} 입니다.`}</div>}
+
     </section>
   )
 }
