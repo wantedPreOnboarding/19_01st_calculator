@@ -4,10 +4,12 @@
 
 ## 구현 목록
 
+![1 시연](https://user-images.githubusercontent.com/39623897/151033629-d9f084e7-a0da-471c-9324-868e808e757c.gif)
+
 ### ExchangeCalculator
 
-[![12.png](https://i.postimg.cc/c42bTnby/12.png)](https://postimg.cc/nCK2hCx0)
 조원명 : 정다빈, 이송현
+
 - 송금 국가는 미국(USD)으로 고정된다.
 - Select Box에서 수취국가를 선택하면 환율이 출력된다.
   - 수취국가는 한국, 일본, 필리핀 세 곳 중 하나를 선택할 수 있다.
@@ -17,6 +19,7 @@
 ### MultiExchangeCalculator
 
 조원명 : 최수임, 김영종
+
 - input 창에 숫자를 넣으면 select 박스의 통화 기준으로 tab 박스의 결과 값이 동기화 되어 변경된다.
   - input 창에는 1 이상의 숫자만 입력할 수 있다. (공백, 문자, 음수, ... 불가능)
   - input 창에는 1,000 이상의 숫자를 입력할 수 없고 입력 시 자동으로 1,000으로 변경된다.
