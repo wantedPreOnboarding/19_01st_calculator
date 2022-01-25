@@ -1,39 +1,35 @@
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import './USD_Calculator.scss';
+import React, { useEffect, useState } from 'react';
+import { getCurrencies } from '../../api/core';
+import './ExchangeCalc.scss';
 
-
-const USD_Calculator = () => {
-  const [datas, setDatas] = useState('');
-  const [money, setMoney] = useState(0);
+const ExchangeCalc = () => {
   const [country, setCountry] = useState('KRW');
-  const  CURRENCYLAYER_API_KEY = process.env.REACT_APP_CURRENCYLAYER_API;
+  const [money, setMoney] = useState(0);
 
-  useEffect(async ()=>{
-    await axios.get(`http://www.apilayer.net/api/live?access_key=${CURRENCYLAYER_API_KEY}`)
-    .then((response) => {setDatas(response.data.quotes)})
-  },[]);
+  useEffect(() => {
+    (async () => {
+      const countryName = await getCurrencies();
 
-  const handleSelect = (event)=>{
-    setCountry(event.target.value);    
-  };
-
-  useEffect(()=>{
-      switch(country){
+      switch (country) {
         case 'KRW':
-          setMoney(datas.USDKRW);
+          setMoney(countryName.USDKRW);
           break;
         case 'JPY':
-          setMoney(datas.USDJPY);
+          setMoney(countryName.USDJPY);
           break;
-          case 'PHP':
-          setMoney(datas.USDPHP);
+        case 'PHP':
+          setMoney(countryName.USDPHP);
           break;
         default:
           console.error('수취국가를 선택해 주세요.');
           break;
       }
-  },[datas, money, country]);
+    })();
+  }, [money, country]);
+
+  const handleSelect = (event) => {
+    setCountry(event.target.value);
+  };
 
   return (
     <section className='calculator__wrapper'>
@@ -51,7 +47,7 @@ const USD_Calculator = () => {
           </select>
         </div>
         <div>
-          <span>환율 : {money && money.toFixed(2)} {country}/USD</span>
+          <span>환율 : {money && money.toFixed(2)}  {country}/USD</span>
         </div>
         <div>
           <span>송금액 : </span>
@@ -63,4 +59,4 @@ const USD_Calculator = () => {
     </section>
   )
 }
-export default USD_Calculator;
+export default ExchangeCalc;
