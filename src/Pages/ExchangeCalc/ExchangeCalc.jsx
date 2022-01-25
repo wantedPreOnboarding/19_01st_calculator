@@ -11,7 +11,7 @@ const ExchangeCalc = () => {
 
   useEffect(() => {
     (async () => {
-      const countryName = await getCurrencies();
+      const { currencies: countryName } = await getCurrencies();
 
       switch (country) {
         case 'KRW':
@@ -55,7 +55,7 @@ const ExchangeCalc = () => {
           <span>송금국가 : 미국(USD)</span>
         </div>
         <div>
-          <span>수취국가:</span>
+          <span>수취국가 : </span>
           <select onChange={handleSelect}>
             <option value="KRW">한국(KRW)</option>
             <option value="JPY">일본(JPY)</option>
