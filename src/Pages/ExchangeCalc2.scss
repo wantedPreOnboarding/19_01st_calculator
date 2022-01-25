@@ -1,0 +1,83 @@
+@use 'sass:selector';
+
+.ex-calc2 {
+  border: 5px solid #000000;
+  max-width: 330px;
+  padding: 30px 20px;
+  transform: translate3D(-50%, -50%, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  &-head {
+    &__form {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+    &__input,
+    &__select {
+      border: 2px solid black;
+      padding: 10px 5px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      width: 150px;
+    }
+
+    &__input {
+      margin-right: 10px;
+    }
+  }
+
+  &-body {
+    &__box {
+      margin-top: 20px;
+    }
+    &__tab {
+      display: flex;
+      justify-content: space-between;
+
+      &--menu {
+        flex-grow: 1;
+        border: 2px solid black;
+        width: 100%;
+        text-align: center;
+        font-weight: 700;
+        padding: 5px 10px;
+
+        button {
+          background: none;
+          padding-top: 2px;
+        }
+        &:nth-child(2n) {
+          border-right: none;
+          border-left: none;
+        }
+
+        &.active {
+          border-bottom: none;
+        }
+      }
+    }
+
+    &__result {
+      height: 200px;
+      border: 2px solid black;
+      border-top: none;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      &--main-text {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      &--sub-text {
+        margin-left: 5px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+  }
+}

@@ -1,37 +1,39 @@
 import React from 'react';
+import './ExchangeCalc2.scss';
 
 const ExchangeCalc2 = () => {
   return (
-    <div className="exchange-calc2">
-      <form className="exchange-calc2__box--head">
-        <input type="text" className="exchange-calc2__input--head" />
-        <select name="currencys" className="exchange-calc2__select--head">
+    <div className="ex-calc2">
+      <form className="ex-calc2-head__form">
+        <input type="text" className="ex-calc2-head__input" />
+        <select name="currencys" className="ex-calc2-head__select">
           <option value="USD">USD</option>
         </select>
       </form>
-      <div className="exchage-calc2__box--body">
-        <ul className="exchange-calc2__box--tab">
-          <li>
-            <button className="exchange-calc2__btn--tab"></button>
+      <div className="ex-calc2-body__box">
+        <ul className="ex-calc2-body__tab">
+          <li className="ex-calc2-body__tab--menu active">
+            <button>CAD</button>
           </li>
-          <li>
-            <button className="exchange-calc2__btn--tab"></button>
+          <li className="ex-calc2-body__tab--menu">
+            <button>CAD</button>
           </li>
-          <li>
-            <button className="exchange-calc2__btn--tab"></button>
+          <li className="ex-calc2-body__tab--menu">
+            <button>CAD</button>
           </li>
-          <li>
-            <button className="exchange-calc2__btn--tab"></button>
+          <li className="ex-calc2-body__tab--menu">
+            <button>CAD</button>
           </li>
-          <li>
-            <button className="exchange-calc2__btn--tab"></button>
-          </li>
-          <li>
-            <button className="exchange-calc2__btn--tab"></button>
+          <li className="ex-calc2-body__tab--menu">
+            <button>CAD</button>
           </li>
         </ul>
-        <div className="exchage-calc2__box--result">
-          <span className="exchage-calc2__span--result"></span>
+        <div className="ex-calc2-body__result">
+          <span className="ex-calc2-body__result--main-text"> CAD 2,000.00</span>
+          <span className="ex-calc2-body__result--sub-text">
+            기준일: <br />
+            2022-Jan-01
+          </span>
         </div>
       </div>
     </div>
