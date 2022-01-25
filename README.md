@@ -2,6 +2,10 @@
 
 ## 배포링크
 
+http://excalc.herokuapp.com/
+
+> https mixed content 문제로 http 프로토콜로 접속을 당부드립니다.
+
 ## 구현 목록
 
 ![1 시연](https://user-images.githubusercontent.com/39623897/151033629-d9f084e7-a0da-471c-9324-868e808e757c.gif)
