@@ -1,8 +1,10 @@
 import React from 'react';
+/* == react-router-dom */
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+/* == Custom - Component */
 import Nav from './Components/Nav/Nav';
-import Main from './Pages/Main';
-
+/* == pages*/
+import ExchangeCalc from './Pages/ExchangeCalc/ExchangeCalc';
 import MultiExchangeCalc from './Pages/MultiExchangeCalc/MultiExchangeCalc';
 
 const Routes = () => {
@@ -10,7 +12,7 @@ const Routes = () => {
     <BrowserRouter>
       <Nav />
       <Switch>
-        <Route exact path="/" component={Main} />
+        <Route exact path="/" component={ExchangeCalc} />
         <Route exact path="/multiExchangeCalc" component={MultiExchangeCalc} />
       </Switch>
     </BrowserRouter>
