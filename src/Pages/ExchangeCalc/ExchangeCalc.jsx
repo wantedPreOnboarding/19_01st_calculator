@@ -5,7 +5,9 @@ import './ExchangeCalc.scss';
 const ExchangeCalc = () => {
   const [country, setCountry] = useState('KRW');
   const [money, setMoney] = useState(0);
-
+  const [remittance, setRemittance] = useState(0);
+  const [resultActive, setResultActive] = useState(false);
+  
   useEffect(() => {
     (async () => {
       const countryName = await getCurrencies();
@@ -27,14 +29,30 @@ const ExchangeCalc = () => {
     })();
   }, [money, country]);
 
+
   const handleSelect = (event) => {
     setCountry(event.target.value);
   };
+  
+const handleFormSubmit=(event)=>{
+  event.preventDefault(); 
+  
+  const remittance = event.target.remittance.value;
+  if (remittance <= 0 || remittance > 10000) {
+    setResultActive(true);
+    setRemittance(0);
+    
+  } else {
+    setResultActive(true);
+    const total = remittance * money;
+    setRemittance(total.toFixed(2));
+  }
+}
 
   return (
     <section className='calculator__wrapper'>
       <h1 className='calculator__wrapper--title'>환율 계산</h1>
-      <form className='calculator__form'>
+      <form className='calculator__form' onSubmit={handleFormSubmit} >
         <div>
           <span>송금국가 : 미국(USD)</span>
         </div>
@@ -51,11 +69,13 @@ const ExchangeCalc = () => {
         </div>
         <div>
           <span>송금액 : </span>
-          <input type="number" aria-label='remittance' />
+          <input type="number" min={0} max={10000} name="remittance" aria-label='remittance'/>
           <span>USD</span>
         </div>
         <button>Submit</button>
       </form>
+      {resultActive && <div>{remittance === 0 ? '송금액이 바르지 않습니다' : `수취금액은 ${remittance} ${country} 입니다.`}</div>}
+      
     </section>
   )
 }
