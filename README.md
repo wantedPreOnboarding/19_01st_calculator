@@ -6,6 +6,7 @@
 
 ### ExchangeCalculator
 
+[![12.png](https://i.postimg.cc/c42bTnby/12.png)](https://postimg.cc/nCK2hCx0)
 조원명 : 정다빈, 이송현
 - 송금 국가는 미국(USD)으로 고정된다.
 - Select Box에서 수취국가를 선택하면 환율이 출력된다.

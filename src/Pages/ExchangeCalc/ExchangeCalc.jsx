@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import commaNumber from '../../utils/commaNumber';
 import { getCurrencies } from '../../api/core';
 import './ExchangeCalc.scss';
 
@@ -41,7 +42,7 @@ const ExchangeCalc = () => {
     if (remittance <= 0 || remittance > 10000) {
       setRemittance(0);
     } else {
-      setRemittance(remittance * exchangeRate).toFixed(2);
+      setRemittance(remittance * exchangeRate);
     }
     setResultActive(true);
   }
@@ -62,7 +63,7 @@ const ExchangeCalc = () => {
           </select>
         </div>
         <div>
-          <span>환율 : {exchangeRate && exchangeRate.toFixed(2)}  {country}/USD</span>
+          <span>환율 : {exchangeRate && commaNumber(exchangeRate.toFixed(2))}  {country}/USD</span>
         </div>
         <div>
           <span>송금액 : </span>
@@ -72,7 +73,7 @@ const ExchangeCalc = () => {
         <button>Submit</button>
       </form>
       {resultActive
-        && <div className={remittance === 0 ? 'error' : 'success'}>{remittance === 0 ? '송금액이 바르지 않습니다' : `수취금액은 ${remittance} ${country} 입니다.`}</div>}
+        && <div className={remittance === 0 ? 'error' : 'success'}>{remittance === 0 ? '송금액이 바르지 않습니다' : `수취금액은 ${commaNumber(remittance.toFixed(2))} ${country} 입니다.`}</div>}
 
     </section>
   )
