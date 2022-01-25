@@ -3,7 +3,7 @@ import USD_Calculator from './../Components/USD_Calculator/USD_Calculator';
 import { getCurrencies } from '../api/core';
 
 const Main = () => {
-  const [currencies, setCurrencies] = useState([]);
+  const [{ currencies, timestamp }, setCurrencies] = useState({});
 
   useEffect(() => {
     (async () => {
