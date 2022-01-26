@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+/* == components*/
+import TabList from './TabList/TabList';
+
 /* == styles*/
 import './MultiExchangeCalc.scss';
 /* == api*/
 import { multiCountries } from '../../api/constants';
 import { getCurrencies } from '../../api/core';
-/* == Custom - utils */
+/* == Custom - utils*/
 import commaNumber from '../../utils/commaNumber';
 import currencyExchanger from '../../utils/currencyExchanger';
 import formattedDate from '../../utils/formattedDate';
@@ -77,7 +80,7 @@ const MultiExchangeCalc = () => {
         <select
           name="currencies"
           className="ex-calc2-head__select"
-          onChange={event => handleClickTab(event)}
+          onChange={event => handleClickSendCountry(event.target.value)}
         >
           {multiCountries.map(country => (
             <option key={country} value={country}>
@@ -87,22 +90,11 @@ const MultiExchangeCalc = () => {
         </select>
       </form>
       <div className="ex-calc2-body__box">
-        <ul className="ex-calc2-body__tab">
-          {multiCountries
-            .filter(country => country !== sendCountry)
-            .map(country => {
-              return (
-                <li
-                  className={`ex-calc2-body__tab--menu ${country === recvCountry && 'active'}`}
-                  key={country}
-                >
-                  <button value={country} onClick={() => handleClickSendCountry(country)}>
-                    {country}
-                  </button>
-                </li>
-              );
-            })}
-        </ul>
+        <TabList
+          tabList={multiCountries.filter(country => country !== sendCountry)}
+          selectedTab={recvCountry}
+          setSelectedTab={handleClickTab}
+        />
         <div className="ex-calc2-body__result">
           <span className="ex-calc2-body__result--main-text">
             {recvCountry} : <output>{result}</output>
