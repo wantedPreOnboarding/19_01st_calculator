@@ -2,18 +2,16 @@
   width: 100vw;
   display: flex;
   justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 30px;
+  margin: 50px 0;
+
   &--ul {
-    list-style: none;
     display: flex;
 
     li {
-      padding: 5px 0;
       margin: 5px 10px;
-      background: #eee;
       padding: 10px 15px;
       border-radius: 10px;
+      background: #eee;
       font-weight: 700;
     }
   }
