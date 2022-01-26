@@ -61,7 +61,7 @@ const MultiExchangeCalc = () => {
   }, []);
 
   return (
-    <div className="ex-calc2">
+    <article className="ex-calc2">
       <form
         className="ex-calc2-head__form"
         onSubmit={e => {
@@ -72,20 +72,18 @@ const MultiExchangeCalc = () => {
           type="text"
           className="ex-calc2-head__input"
           value={commaNumber(valueInput)}
-          onChange={e => handleChangeInput(e.target.value)}
+          onChange={event => handleChangeInput(event.target.value)}
         />
         <select
           name="currencies"
           className="ex-calc2-head__select"
-          onChange={e => handleClickTab(e.target.value)}
+          onChange={event => handleClickTab(event)}
         >
-          {multiCountries.map(country => {
-            return (
-              <option key={country} value={country}>
-                {country}
-              </option>
-            );
-          })}
+          {multiCountries.map(country => (
+            <option key={country} value={country}>
+              {country}
+            </option>
+          ))}
         </select>
       </form>
       <div className="ex-calc2-body__box">
@@ -107,7 +105,7 @@ const MultiExchangeCalc = () => {
         </ul>
         <div className="ex-calc2-body__result">
           <span className="ex-calc2-body__result--main-text">
-            {recvCountry} : {result}
+            {recvCountry} : <output>{result}</output>
           </span>
           <span className="ex-calc2-body__result--sub-text">
             기준일: <br />
@@ -115,7 +113,7 @@ const MultiExchangeCalc = () => {
           </span>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
