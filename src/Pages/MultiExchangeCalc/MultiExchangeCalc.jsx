@@ -26,19 +26,19 @@ const MultiExchangeCalc = () => {
   };
 
   //사용자가 input을 입력 후 전송하면 결과창을 변경하는 함수
-  const submitHandler = e => {
-    e.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
     changeResult(sendCountry, recvCountry);
   };
 
   //tab 메뉴 클릭시 결과창을 변경하는 함수
-  const tabHandler = country => {
+  const handleClickTab = country => {
     changeResult(sendCountry, country);
     setRecvCountry(country);
   };
 
   //select에서 보낸국가 변경시 결과창을 변경하는 함수
-  const sendCountryHandler = selectedCountry => {
+  const handleClickSendCountry = selectedCountry => {
     if (selectedCountry === recvCountry) {
       setRecvCountry(multiCountries.filter(country => country !== selectedCountry)[0]);
     }
@@ -47,7 +47,7 @@ const MultiExchangeCalc = () => {
   };
 
   //input value comma함수 적용후 valueInput 상태변경
-  const inputHandler = value => {
+  const handleChangeInput = value => {
     const filteredValue = value.replaceAll(',', '').trim('');
     if (isNaN(+filteredValue)) return;
     setValueInput(filteredValue <= 0 ? '' : filteredValue > 1000 ? 1000 : filteredValue);
@@ -65,19 +65,19 @@ const MultiExchangeCalc = () => {
       <form
         className="ex-calc2-head__form"
         onSubmit={e => {
-          submitHandler(e);
+          handleSubmit(e);
         }}
       >
         <input
           type="text"
           className="ex-calc2-head__input"
           value={commaNumber(valueInput)}
-          onChange={e => inputHandler(e.target.value)}
+          onChange={e => handleChangeInput(e.target.value)}
         />
         <select
           name="currencies"
           className="ex-calc2-head__select"
-          onChange={e => sendCountryHandler(e.target.value)}
+          onChange={e => handleClickTab(e.target.value)}
         >
           {multiCountries.map(country => {
             return (
@@ -98,7 +98,7 @@ const MultiExchangeCalc = () => {
                   className={`ex-calc2-body__tab--menu ${country === recvCountry && 'active'}`}
                   key={country}
                 >
-                  <button value={country} onClick={() => tabHandler(country)}>
+                  <button value={country} onClick={() => handleClickSendCountry(country)}>
                     {country}
                   </button>
                 </li>
