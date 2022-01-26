@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 /* == components*/
-import TabList from './TabList/TabList';
+import TabList from '../../Components/TabList/TabList';
 
 /* == styles*/
 import './MultiExchangeCalc.scss';

@@ -3,7 +3,7 @@ import './TabList.scss';
 
 export default function TabList({ tabList, selectedTab, setSelectedTab }) {
   return (
-    <ul className="multi-calc__tablist" role="tablist">
+    <ul className="tablist" role="tablist">
       {tabList.map(tab => {
         return (
           <li
