@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { countries } from './constants';
+/* == constants*/
+import { countries } from '../constants/countries';
 
 const instance = axios.create({
   baseURL: 'http://apilayer.net/api',

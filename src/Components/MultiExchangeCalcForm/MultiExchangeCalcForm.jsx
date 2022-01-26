@@ -1,11 +1,11 @@
 import React from 'react';
 
-/* == api*/
-import { multiCountries } from '../../api/constants';
 /* == styles*/
 import './MultiExchangeCalcForm.scss';
 /* == Custom - utils*/
 import commaNumber from '../../utils/commaNumber';
+/* == constants*/
+import { multiCountries } from '../../constants/countries';
 
 export default function MultiExchangeCalcForm({
   valueInput,

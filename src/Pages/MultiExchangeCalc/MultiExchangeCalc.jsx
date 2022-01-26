@@ -4,12 +4,13 @@ import TabList from '../../Components/TabList/TabList';
 /* == styles*/
 import './MultiExchangeCalc.scss';
 /* == api*/
-import { multiCountries } from '../../api/constants';
 import { getCurrencies } from '../../api/core';
 /* == Custom - utils*/
 import currencyExchanger from '../../utils/currencyExchanger';
 import formattedDate from '../../utils/formattedDate';
 import MultiExchangeCalcForm from '../../Components/MultiExchangeCalcForm/MultiExchangeCalcForm';
+/* == constants*/
+import { multiCountries } from '../../constants/countries';
 
 const MultiExchangeCalc = () => {
   const [sendCountry, setSendCountry] = useState('USD');
