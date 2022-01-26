@@ -17,12 +17,12 @@ const MultiExchangeCalc = () => {
     currencies: null,
     timestamp: null,
   });
-  const [resultValue, setResultValue] = useState(0);
+  const [result, setResult] = useState(0);
 
   //currencyExchanger에서 받은 결과를 상태로 연동
   const changeResult = (sendCountry, recvCountry) => {
-    const result = currencyExchanger(sendCountry, recvCountry, valueInput, currencies);
-    setResultValue(result);
+    const newResult = currencyExchanger(sendCountry, recvCountry, valueInput, currencies);
+    setResult(newResult);
   };
 
   //사용자가 input을 입력 후 전송하면 결과창을 변경하는 함수
@@ -107,7 +107,7 @@ const MultiExchangeCalc = () => {
         </ul>
         <div className="ex-calc2-body__result">
           <span className="ex-calc2-body__result--main-text">
-            {recvCountry} : {resultValue}
+            {recvCountry} : {result}
           </span>
           <span className="ex-calc2-body__result--sub-text">
             기준일: <br />
