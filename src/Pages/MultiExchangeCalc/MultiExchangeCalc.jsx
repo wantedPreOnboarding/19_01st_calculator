@@ -13,7 +13,10 @@ const MultiExchangeCalc = () => {
   const [sendCountry, setSendCountry] = useState('USD');
   const [recvCountry, setRecvCountry] = useState('CAD');
   const [valueInput, setValueInput] = useState('');
-  const [{ currencies, timestamp }, setCurrencies] = useState({});
+  const [{ currencies, timestamp }, setCurrencies] = useState({
+    currencies: null,
+    timestamp: null,
+  });
   const [resultValue, setResultValue] = useState(0);
 
   //currencyExchanger에서 받은 결과를 상태로 연동
