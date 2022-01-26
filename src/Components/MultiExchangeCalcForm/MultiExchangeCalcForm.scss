@@ -1,0 +1,23 @@
+.ex-calc2 {
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 20px;
+  }
+
+  &__input,
+  &__select {
+    border: 2px solid black;
+    padding: 10px 5px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    width: 150px;
+    cursor: pointer;
+  }
+
+  &__input {
+    margin-right: 10px;
+  }
+}

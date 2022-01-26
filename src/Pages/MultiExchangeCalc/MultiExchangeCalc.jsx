@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 /* == components*/
 import TabList from '../../Components/TabList/TabList';
-
 /* == styles*/
 import './MultiExchangeCalc.scss';
 /* == api*/
 import { multiCountries } from '../../api/constants';
 import { getCurrencies } from '../../api/core';
 /* == Custom - utils*/
-import commaNumber from '../../utils/commaNumber';
 import currencyExchanger from '../../utils/currencyExchanger';
 import formattedDate from '../../utils/formattedDate';
+import MultiExchangeCalcForm from '../../Components/MultiExchangeCalcForm/MultiExchangeCalcForm';
 
 const MultiExchangeCalc = () => {
   const [sendCountry, setSendCountry] = useState('USD');
@@ -65,45 +64,26 @@ const MultiExchangeCalc = () => {
 
   return (
     <article className="ex-calc2">
-      <form
-        className="ex-calc2-head__form"
-        onSubmit={e => {
-          handleSubmit(e);
-        }}
-      >
-        <input
-          type="text"
-          className="ex-calc2-head__input"
-          value={commaNumber(valueInput)}
-          onChange={event => handleChangeInput(event.target.value)}
-        />
-        <select
-          name="currencies"
-          className="ex-calc2-head__select"
-          onChange={event => handleClickSendCountry(event.target.value)}
-        >
-          {multiCountries.map(country => (
-            <option key={country} value={country}>
-              {country}
-            </option>
-          ))}
-        </select>
-      </form>
-      <div className="ex-calc2-body__box">
-        <TabList
-          tabList={multiCountries.filter(country => country !== sendCountry)}
-          selectedTab={recvCountry}
-          setSelectedTab={handleClickTab}
-        />
-        <div className="ex-calc2-body__result">
-          <span className="ex-calc2-body__result--main-text">
-            {recvCountry} : <output>{result}</output>
-          </span>
-          <span className="ex-calc2-body__result--sub-text">
-            기준일: <br />
-            {timestamp && formattedDate(timestamp)}
-          </span>
-        </div>
+      <h2 className="a11y-hidden">Multi Exchange Calculator</h2>
+      <MultiExchangeCalcForm
+        valueInput={valueInput}
+        handleSubmit={handleSubmit}
+        handleChangeInput={handleChangeInput}
+        handleClickSendCountry={handleClickSendCountry}
+      />
+      <TabList
+        tabList={multiCountries.filter(country => country !== sendCountry)}
+        selectedTab={recvCountry}
+        setSelectedTab={handleClickTab}
+      />
+      <div className="ex-calc2__result">
+        <span className="ex-calc2__result--main">
+          {recvCountry} : <output>{result}</output>
+        </span>
+        <span className="ex-calc2__result--sub">
+          기준일: <br />
+          {timestamp && formattedDate(timestamp)}
+        </span>
       </div>
     </article>
   );
