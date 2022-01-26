@@ -1,83 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import commaNumber from '../../utils/commaNumber';
 import { getCurrencies } from '../../api/core';
+import commaNumber from '../../utils/commaNumber';
 import './ExchangeCalc.scss';
 
 const ExchangeCalc = () => {
   const [country, setCountry] = useState('KRW');
   const [exchangeRate, setExchangeRate] = useState(0);
-  const [remittance, setRemittance] = useState(0);
-  const [resultActive, setResultActive] = useState(false);
+  const [receiptAmount, setReceiptAmount] = useState(0);
+  const [resultValue, setResultValue] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const { currencies: countryName } = await getCurrencies();
-
-      switch (country) {
-        case 'KRW':
-          setExchangeRate(countryName.USDKRW);
-          break;
-        case 'JPY':
-          setExchangeRate(countryName.USDJPY);
-          break;
-        case 'PHP':
-          setExchangeRate(countryName.USDPHP);
-          break;
-        default:
-          console.error('수취국가를 선택해 주세요.');
-          break;
-      }
+      const { currencies } = await getCurrencies();
+      const countryValue = currencies[`USD${country}`];
+      setExchangeRate((countryValue).toFixed(2));
     })();
   }, [exchangeRate, country]);
 
-  const handleSelect = event => {
+  const handleSelectChange = event => {
     setCountry(event.target.value);
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
-
-    const remittance = event.target.remittance.value;
-    if (remittance <= 0 || remittance > 10000) {
-      setRemittance(0);
-    } else {
-      setRemittance(remittance * exchangeRate);
-    }
-    setResultActive(true);
+    setResultValue(true);
+    setReceiptAmount(event.target['receiptAmount'].value * exchangeRate);
   };
 
   return (
-    <section className="calculator__wrapper">
-      <h1 className="calculator__wrapper--title">환율 계산</h1>
-      <form className="calculator__form" onSubmit={handleFormSubmit}>
-        <div>
+    <section className="exchange__wrapper">
+      <h1 className="exchange__wrapper--title">환율 계산</h1>
+      <form className="exchange__form" onSubmit={handleFormSubmit}>
+        <div className='exchange__form--box'>
           <span>송금국가 : 미국(USD)</span>
         </div>
-        <div>
+        <div className='exchange__form--box'>
           <span>수취국가 : </span>
-          <select onChange={handleSelect}>
+          <select onChange={handleSelectChange}>
             <option value="KRW">한국(KRW)</option>
             <option value="JPY">일본(JPY)</option>
             <option value="PHP">필리핀(PHP)</option>
           </select>
         </div>
-        <div>
+        <div className='exchange__form--box'>
           <span>
-            환율 : {exchangeRate && commaNumber(exchangeRate.toFixed(2))} {country}/USD
+            환율 : {exchangeRate && commaNumber(exchangeRate)} {country}/ USD
           </span>
         </div>
-        <div>
+        <div className='exchange__form--box'>
           <span>송금액 : </span>
-          <input type="number" min={0} max={10000} name="remittance" aria-label="remittance" />
+          <input type="number" name="receiptAmount" aria-label="receiptAmount" min={0} max={10000} autoFocus />
           <span>USD</span>
         </div>
         <button>Submit</button>
       </form>
-      {resultActive && (
-        <div className={remittance === 0 ? 'error' : 'success'}>
-          {remittance === 0
+      {resultValue && (
+        <div className={`exchange__result${receiptAmount === 0 ? '__error' : '__success'} `}>
+          {receiptAmount === 0
             ? '송금액이 바르지 않습니다'
-            : `수취금액은 ${commaNumber(remittance.toFixed(2))} ${country} 입니다.`}
+            : `수취금액은 ${commaNumber(receiptAmount.toFixed(2))} ${country} 입니다.`}
         </div>
       )}
     </section>
