@@ -43,9 +43,12 @@ const MultiExchangeCalc = () => {
   //select에서 보낸국가 변경시 결과창을 변경하는 함수
   const handleClickSendCountry = selectedCountry => {
     if (selectedCountry === recvCountry) {
-      setRecvCountry(multiCountries.filter(country => country !== selectedCountry)[0]);
+      const resetResvCoun = multiCountries.filter(country => country !== selectedCountry)[0];
+      setRecvCountry(resetResvCoun);
+      changeResult(selectedCountry, resetResvCoun);
+    } else {
+      changeResult(selectedCountry, recvCountry);
     }
-    changeResult(selectedCountry, recvCountry);
     setSendCountry(selectedCountry);
   };
 
