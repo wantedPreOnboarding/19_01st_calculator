@@ -64,7 +64,7 @@ const MultiExchangeCalc = () => {
   }, []);
 
   return (
-    <article className="ex-calc2">
+    <section className="ex-calc2">
       <h2 className="a11y-hidden">Multi Exchange Calculator</h2>
       <MultiExchangeCalcForm
         valueInput={valueInput}
@@ -86,7 +86,7 @@ const MultiExchangeCalc = () => {
           {timestamp && formattedDate(timestamp)}
         </span>
       </div>
-    </article>
+    </section>
   );
 };
 
